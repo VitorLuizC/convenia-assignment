@@ -2,7 +2,7 @@
   <section>
     <form class="calc-form">
       <entry-increment class="entry" v-model="minutes" />
-      <entry-select v-model="to" />
+      <entry-select class="entry" v-model="to" :values="['Paulista', 'São Paulo']" />
     </form>
   </section>
 </template>

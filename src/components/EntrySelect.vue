@@ -4,9 +4,18 @@
       {{ value }}
       <img 
         class="entry-select-icon"
+        src="~@assets/icons/arrow.svg"
         :class="{ '-inverted': isOpen }"
-        src="~@assets/icons/arrow.svg" alt="" />
+        :alt="isOpen ? 'Close' : 'Open'"
+        :title="isOpen ? 'Close' : 'Open'" />
     </p>
+    <ul class="entry-select-items">
+      <li
+        class="entry-select-item"
+        v-for="(item, index) in items"
+        :key="index"
+        @click="$emit('input', item.value)">{{ item.label }}</li>
+    </ul>
   </div>
 </template>
 
@@ -18,7 +27,26 @@
       }
     },
     props: {
-      value: String
+      values: Array,
+      value: String,
+      valueKey: {
+        type: String,
+        default: null
+      },
+      labelKey: {
+        type: String,
+        default: null
+      }
+    },
+    computed: {
+      items() {
+        return this.values.map(value => {
+          return {
+            value: this.valueKey ? value[this.valueKey] : value,
+            label: this.labelKey ? value[this.labelKey] : value
+          };
+        });
+      }
     }
   };
 </script>
@@ -27,4 +55,17 @@
   .entry-select-icon
     &.-inverted
       transform: rotate(180deg)
+
+  .entry-selected
+    box-sizing: border-box
+    width: 100%
+    height: @width
+
+  .entry-select-items
+    position: absolute
+
+  .entry-select-item
+    cursor: pointer
+
+  .entry-select
 </style>

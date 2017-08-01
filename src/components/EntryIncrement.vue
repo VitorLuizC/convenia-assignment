@@ -71,6 +71,7 @@
       left: 0
 
     > .entry
+      box-sizing: border-box
       width: 100%
       height: 100%
       padding-right: 36px

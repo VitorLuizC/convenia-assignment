@@ -1,0 +1,24 @@
+{
+  "name": "phone-tax-calculator",
+  "version": "0.1.0",
+  "description": "A Vue/Vuex application that calc phone-calls prices.",
+  "main": "./src/index.js",
+  "repository": "https://github.com/VitorLuizC/phone-tax-calculator.git",
+  "author": {
+    "name": "Vitor Cavalcanti",
+    "email": "vitorluizc@outlook.com",
+    "url": "https://vitorluizc.github.io/"
+  },
+  "license": "MIT",
+  "scripts": {
+    "dev": "poi ./src"
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "vue": "^2.4.2",
+    "vuex": "^2.3.1"
+  },
+  "devDependencies": {
+    "poi": "^9.1.10"
+  }
+}

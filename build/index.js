@@ -19,8 +19,12 @@ function getConfiguration(env = 'development') {
       publicPath: '/'
     },
     resolve: {
-      extensions: ['.vue', '.js', '.json'],
+      extensions: ['.vue', '.js', '.json', '.styl'],
       alias: {
+        '@assets': path.resolve(__dirname, '../src/assets'),
+        '@components': path.resolve(__dirname, '../src/components'),
+        '@store': path.resolve(__dirname, '../src/store'),
+        '@styles': path.resolve(__dirname, '../src/styles'),
         'vue$': 'vue/dist/vue.esm.js' // Esse alias é necessário ao configurar
                                       // um bundler pra Vue. Ele faz com que o
                                       // vue exporte um módulo do EcmaScript ao

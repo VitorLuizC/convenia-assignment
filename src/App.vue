@@ -1,7 +1,7 @@
 <template>
   <section>
     <form class="calc-form">
-      <entry-increment class="input" v-model="minutes" />
+      <entry-increment class="entry" v-model="minutes" />
       <entry-select v-model="to" />
     </form>
   </section>
@@ -30,7 +30,8 @@
   .calc-form
     width: 640px
 
-    > .input
+    > .entry
       width: calc(100% / 3)
+      height: 36px
 </style>
 

@@ -3,7 +3,8 @@
     <p class="entry-selected" @click="isOpen = !isOpen">
       {{ value }}
       <img 
-        class="icon"
+        class="entry-select-icon"
+        :class="{ '-inverted': isOpen }"
         src="~@assets/icons/arrow.svg" alt="" />
     </p>
   </div>
@@ -23,12 +24,7 @@
 </script>
 
 <style lang="stylus">
-  .entry-selected
-    &.-open
-    &.-open > .icon
+  .entry-select-icon
+    &.-inverted
       transform: rotate(180deg)
-
-  .entry-select
-    &.-open > .entry-selected
-      @extend .entry-selected.-open
 </style>

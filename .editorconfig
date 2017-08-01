@@ -7,7 +7,7 @@ end_of_line = crlf
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-# Arquivos fontes mantém a indentação com espaços, 2 pra ser preciso
+# Mantém a indentação com espaços, 2 pra ser preciso, nos arquivos fontes
 [*.{js,json,.babelrc,vue,html,styl}]
 indent_size = 2
 indent_style = space

@@ -69,6 +69,15 @@ function getRules(env) {
           name: 'font/[name].[ext]'
         }
       }
+    },
+    {
+      test: /\.svg$/,
+      use: {
+        loader: 'file-loader',
+        options: {
+          name: 'img/[name].[ext]'
+        }
+      }
     }
   ]
 }

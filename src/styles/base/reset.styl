@@ -1,0 +1,22 @@
+// Faço reset das propriedades predefinidas pelo browser nas Tags que uso no
+// aplicativo.
+
+html
+body
+  height: 100%
+
+body
+  margin: 0
+
+button:focus
+input:focus
+  outline: none
+  box-shadow: none
+
+input[type="number"]
+  -moz-appearance: textfield
+
+  &::-webkit-outer-spin-button
+  &::-webkit-inner-spin-button
+    -webkit-appearance: none
+    margin: 0

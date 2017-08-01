@@ -1,0 +1,17 @@
+root = true
+
+# Configurações padrão
+[*]
+charset = utf-8f
+end_of_line = crlf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Arquivos fontes mantém a indentação com espaços, 2 pra ser preciso
+[*.{js,json,.babelrc,vue,html,styl}]
+indent_size = 2
+indent_style = space
+
+# Arquivos HTML e Vue podem ter espaços no final das linhas
+[*.{vue,html}]
+trim_trailing_whitespace = false

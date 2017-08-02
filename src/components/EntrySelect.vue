@@ -1,44 +1,44 @@
 <template>
-  <div class="entry-select" :class="{ '-open': isOpen }">
-    <p class="entry-selected" @click="isOpen = !isOpen">
-      {{ value }}
-      <img 
-        class="icon"
-        src="~@assets/icons/arrow.svg"
-        :class="{ '-inverted': isOpen }"
-        :alt="isOpen ? 'Close' : 'Open'"
-        :title="isOpen ? 'Close' : 'Open'" />
-    </p>
-    <transition name="slide">
-      <ul v-if="isOpen" class="entry-select-items">
-        <li
-          class="entry-select-item"
-          v-for="(item, index) in items"
-          :key="index"
-          @click="$emit('input', item.value)">{{ item.label }}</li>
-      </ul>
-    </transition>
-  </div>
+  <entry-default class="entry-select" :label="label">
+    <div class="entry-group -select" :class="{ '-open': isOpen }">
+      <p class="entry" @click="isOpen = !isOpen"> {{ value }}
+        <img 
+          class="icon"
+          src="~@assets/icons/arrow.svg"
+          :class="{ '-inverted': isOpen }"
+          :alt="isOpen ? 'Close' : 'Open'"
+          :title="isOpen ? 'Close' : 'Open'" />
+      </p>
+      <transition name="open">
+        <ul v-if="isOpen" class="entry-select-items">
+          <li
+            class="entry-select-item"
+            v-for="(item, index) in items"
+            :key="index"
+            :class="{ '-selected': value === item.value }"
+            @click="select(item)">{{ item.label }}</li>
+        </ul>
+      </transition>
+    </div>
+  </entry-default>
 </template>
 
 <script>
+  import EntryDefault from '@components/EntryDefault'
+
   export default {
+    components: { EntryDefault },
     data() {
       return {
         isOpen: false
       }
     },
     props: {
+      label: String,
       values: Array,
       value: String,
-      valueKey: {
-        type: String,
-        default: null
-      },
-      labelKey: {
-        type: String,
-        default: null
-      }
+      valueKey: String,
+      labelKey: String
     },
     computed: {
       items() {
@@ -49,6 +49,12 @@
           };
         });
       }
+    },
+    methods: {
+      select(item) {
+        this.$emit('input', item.value)
+        this.isOpen = false
+      }
     }
   };
 </script>
@@ -57,44 +63,48 @@
   @import '~@styles/theme'
   @import '~@styles/transitions'
 
-  .entry-selected
-    box-sizing: border-box
-    display: flex
-    align-items: center
-    border-bottom: 3px solid neutral-color
-    transition: border-bottom-color 500ms ease
-
-    > .icon
-      position: absolute
-      top: 50%
-      right: 0
-      display: block
-      width: 24px
-      height: @width
-      transform: translateY(-50%)
-      transition: transform 500ms ease
-
-    > .icon.-inverted
-      transform: translateY(-50%) rotate(180deg)
-
-    &:hover
-      border-bottom-color: secondary-color
-
-  .entry-select
-    position: relative
-
-    > .entry-selected
+  .entry-group.-select
+    > .entry
       position: relative
-      width: 100%
-      height: @width
+      display: flex
+      align-items: center
+      padding-right: 32px
+      padding-left: 12px
+      cursor: pointer
+
+      > .icon
+        position: absolute
+        top: 50%
+        right: 0
+        display: block
+        width: 24px
+        height: @width
+        transform: translateY(-50%)
+        transition: transform 500ms ease
+
+      > .icon.-inverted
+        transform: translateY(-50%) rotate(180deg)
 
     > .entry-select-items
       position: absolute
       top: 100%
+      width: 100%
 
-    &.-open > .entry-selected
-      border-bottom-color: secondary-color
+  .entry-select-items
+    box-sizing: border-box
+    padding: 12px
+    background-color: neutral-color
+
+    > .entry-select-item + .entry-select-item
+      margin-top: 12px
 
   .entry-select-item
     cursor: pointer
+    transition: color 300ms ease
+
+    &.-selected
+      color: primary-color + 25%
+
+    &:hover
+      color: primary-color
 </style>

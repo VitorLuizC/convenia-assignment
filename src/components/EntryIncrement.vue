@@ -1,36 +1,39 @@
 <template>
-  <div class="entry-increment">
-    <button class="decrement" type="button" @click="$emit('input', value - 1)">
-      <img
-        class="icon"
-        src="~@assets/icons/minus.svg"
-        alt="Decrement"
-        title="Decrement" />
-    </button>
+  <entry-default class="entry-increment" :label="label">
+    <div class="entry-group -increment">
+      <button class="decrement" type="button" @click="$emit('input', (value || 0) - 1)">
+        <img
+          class="icon"
+          src="~@assets/icons/minus.svg"
+          alt="Decrement"
+          title="Decrement" />
+      </button>
 
-    <input
-      class="entry"
-      type="number" 
-      :value="value"
-      @input="event => $emit('input', +event.target.value)" />
+      <input
+        class="entry"
+        type="number" 
+        :value="value"
+        @input="event => $emit('input', +event.target.value)" />
 
-    <button class="increment" type="button" @click="$emit('input', value + 1)">
-      <img
-        class="icon"
-        src="~@assets/icons/plus.svg"
-        alt="Increment"
-        title="Increment" />
-    </button>
-  </div>
+      <button class="increment" type="button" @click="$emit('input', (value || 0) + 1)">
+        <img
+          class="icon"
+          src="~@assets/icons/plus.svg"
+          alt="Increment"
+          title="Increment" />
+      </button>
+    </div>
+  </entry-default>
 </template>
 
 <script>
+  import EntryDefault from '@components/EntryDefault'
+
   export default {
+    components: { EntryDefault },
     props: {
-      value: {
-        type: Number,
-        default: 0
-      }
+      label: String,
+      value: Number
     }
   };
 </script>
@@ -50,9 +53,8 @@
       transform: scale(.8)
       transition: transform 150ms ease
 
-  .entry-increment
+  .entry-group.-increment
     &
-      position: relative
       display: flex
       align-items: center
 
@@ -71,16 +73,7 @@
       left: 0
 
     > .entry
-      box-sizing: border-box
-      width: 100%
-      height: 100%
       padding-right: 36px
       padding-left: @padding-right
-      border-bottom: 3px solid neutral-color
-      font-size: 18px
       transition: border-bottom-color 500ms ease
-
-    > .entry:focus
-    > .entry:hover
-      border-bottom-color: secondary-color
 </style>

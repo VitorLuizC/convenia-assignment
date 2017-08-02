@@ -1,14 +1,14 @@
 // Classes de transições do Vue Transitions.
 
-.slide-enter-active
-.slide-leave-active
-  transition: transform 800ms ease,
-              opacity 800ms ease
+.open-enter-active
+.open-leave-active
+  transition: transform 500ms ease,
+              opacity 500ms ease
 
-.slide-enter
-  transform: translateY(-50%)
+.open-enter
+  transform: translateY(-50%) scaleY(0)
   opacity: 0
 
-.slide-leave-to
-  transform: translateY(-50%)
+.open-leave-to
+  transform: translateY(-50%) scaleY(0)
   opacity: 0

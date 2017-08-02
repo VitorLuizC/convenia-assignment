@@ -76,7 +76,7 @@
       height: 100%
       padding-right: 36px
       padding-left: @padding-right
-      border-bottom: 3px solid #e0e0e0
+      border-bottom: 3px solid neutral-color
       font-size: 18px
       transition: border-bottom-color 500ms ease
 

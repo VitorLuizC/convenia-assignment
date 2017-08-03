@@ -66,7 +66,6 @@
 
 <style lang="stylus">
   @import '~@styles/theme'
-  @import '~@styles/transitions'
 
   .entry-group.-select
     > .entry

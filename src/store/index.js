@@ -28,7 +28,16 @@ export default new Vuex.Store({
       return state.prices;
     },
     [types.DETAILS]: state => {
-      return state.details;
+      const details = Object.keys(state.details).map(
+        detail => ({
+          value: detail,
+          label: state.details[detail]
+        })
+      );
+      return details;
+    },
+    [types.RESULTS]: state => {
+      return state.results;
     }
   },
   mutations: {
@@ -40,6 +49,9 @@ export default new Vuex.Store({
     },
     [types.DETAILS]: (state, payload) => {
       state.details = payload;
+    },
+    [types.RESULTS]: (state, payload) => {
+      state.results = payload;
     }
   },
   actions: {
@@ -61,6 +73,35 @@ export default new Vuex.Store({
     [types.DETAILS_FETCH]: async ({ commit }) => {
       const { data: details } = await axios.get('ddd/details');
       commit(types.DETAILS, details);
+    },
+    [types.RESULTS_CALC]: ({ commit, getters }, payload) => {
+      const { origin, destiny, minutes } = payload;
+      const prices = getters[types.PRICES];
+      const plans = getters[types.PLANS];
+
+      const normal = prices.find(price => {
+        const isEquals = (price.origin === origin && price.destiny === destiny);
+        return isEquals;
+      });
+
+      if (!origin || !destiny || !minutes || !normal) {
+        commit(types.RESULTS, []);
+        return;
+      }
+
+      const results = plans.map(plan => {
+        const time = minutes - plan.time;
+        const price = (time > 0 ? time : 0) * normal.price * 1.1;
+
+        const result = {
+          price,
+          plan: plan.plan_name,
+        };
+
+        return result;
+      });
+
+      commit(types.RESULTS, results);
     }
   }
 });

@@ -1,7 +1,8 @@
 <template>
   <entry-default class="entry-select" :label="label">
     <div class="entry-group -select" :class="{ '-open': isOpen }">
-      <p class="entry" @click="isOpen = !isOpen"> {{ value }}
+      <p class="entry" @click="isOpen = !isOpen">
+        {{ selected }}
         <img 
           class="icon"
           src="~@assets/icons/arrow.svg"
@@ -48,6 +49,10 @@
             label: this.labelKey ? value[this.labelKey] : value
           };
         });
+      },
+      selected() {
+        const item = this.items.find(item => item.value === this.value);
+        return item ? item[this.labelKey] : null;
       }
     },
     methods: {
@@ -94,6 +99,7 @@
     box-sizing: border-box
     padding: 12px
     background-color: neutral-color
+    z-index: 1
 
     > .entry-select-item + .entry-select-item
       margin-top: 12px

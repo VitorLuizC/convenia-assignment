@@ -8,6 +8,7 @@
 </template>
 
 <script>
+  import * as types from '@store/types';
   import EntryIncrement from '@components/EntryIncrement';
   import EntrySelect from '@components/EntrySelect';
 
@@ -20,6 +21,13 @@
       return {
         to: 'São Paulo',
         minutes: 200
+      }
+    },
+    created() {
+      try {
+        this.$store.dispatch(types.FETCH);
+      } catch (error) {
+        this.error = error;
       }
     }
   };

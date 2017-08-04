@@ -62,15 +62,6 @@ function getRules(env) {
       }
     },
     {
-      test: /\.woff2?$/,
-      use: {
-        loader: 'file-loader',
-        options: {
-          name: 'font/[name].[ext]'
-        }
-      }
-    },
-    {
       test: /\.svg$/,
       use: {
         loader: 'file-loader',

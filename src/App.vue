@@ -1,64 +1,20 @@
 <template>
-  <section>
-    <form class="calc-form">
-      <entry-increment
-        class="entry"
-        label="Minutes"
-        v-model="minutes" />
-
-      <entry-select
-        class="entry"
-        label="Origin"
-        label-key="label"
-        value-key="value"
-        v-model="origin"
-        :values="details" />
-
-      <entry-select
-        class="entry"
-        label="Destiny"
-        label-key="label"
-        value-key="value"
-        v-model="destiny"
-        :values="details" />
-    </form>
-  </section>
+  <main class="app-main">
+    <h1 class="title">Comparador de planos de telefonia</h1>
+    <calc-form class="form" />
+    <calc-results class="results" />
+  </main>
 </template>
 
 <script>
   import * as types from '@store/types';
-  import EntryIncrement from '@components/EntryIncrement';
-  import EntrySelect from '@components/EntrySelect';
-
-  function calc() {
-    this.$store.dispatch(types.RESULTS_CALC, {
-      origin: this.origin,
-      destiny: this.destiny,
-      minutes: this.minutes
-    })
-  }
+  import CalcForm from '@containers/CalcForm';
+  import CalcResults from '@containers/CalcResults';
 
   export default {
     components: {
-      EntryIncrement,
-      EntrySelect
-    },
-    data() {
-      return {
-        origin: null,
-        destiny: null,
-        minutes: null
-      }
-    },
-    computed: {
-      details() {
-        return this.$store.getters[types.DETAILS];
-      }
-    },
-    watch: {
-      origin: calc,
-      destiny: calc,
-      minutes: calc
+      CalcForm,
+      CalcResults
     },
     created() {
       try {
@@ -72,10 +28,26 @@
 
 <style lang="stylus" src="@styles/base"></style>
 <style lang="stylus">
-  .calc-form
-    width: 640px
+  .app-main
+    display: flex
+    flex-direction: column
+    width: 90%
+    min-height: 100%
+    margin-right: auto
+    margin-left: @margin-right
 
-    > .entry
-      width: calc(100% / 3)
+    @media screen and (min-width: 768px)
+      width: 700px
+
+    > .title
+      font-size: 40px
+      font-weight: 100
+      font-variant: small-caps
+      text-align: center
+
+    > .title
+    > .form
+    > .results
+      width: 100%
+      margin-bottom: 40px
 </style>
-

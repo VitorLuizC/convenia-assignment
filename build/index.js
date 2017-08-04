@@ -23,6 +23,7 @@ function getConfiguration(env = 'development') {
       alias: {
         '@assets': path.resolve(__dirname, '../src/assets'),
         '@components': path.resolve(__dirname, '../src/components'),
+        '@containers': path.resolve(__dirname, '../src/containers'),
         '@store': path.resolve(__dirname, '../src/store'),
         '@styles': path.resolve(__dirname, '../src/styles'),
         'vue$': 'vue/dist/vue.esm.js' // Esse alias é necessário ao configurar

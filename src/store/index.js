@@ -15,10 +15,14 @@ axios.interceptors.response.use(
 
 export default new Vuex.Store({
   state: {
+    params: {
+      origin: null,
+      destiny: null,
+      minutes: null,
+    },
     plans: [],
     prices: [],
-    details: [],
-    results: []
+    details: []
   },
   getters: {
     [types.PLANS]: state => {
@@ -36,8 +40,40 @@ export default new Vuex.Store({
       );
       return details;
     },
-    [types.RESULTS]: state => {
-      return state.results;
+    [types.CALC_PARAMS]: state => {
+      return state.params;
+    },
+    [types.CALC_RESULTS]: state => {
+      const { origin, destiny, minutes } = state.params;
+
+      const normal = state.prices.find(price => {
+        const isEquals = (price.origin === origin && price.destiny === destiny);
+        return isEquals;
+      });
+
+      const isInvalid = (!origin || !destiny || !minutes || !normal);
+
+      const results = [
+        ...state.plans.map(plan => {
+          if (isInvalid)
+            return {
+              plan: plan.plan_name,
+              price: null
+            };
+
+          const time = minutes - plan.time;
+          return {
+            plan: plan.plan_name,
+            price: (time > 0 ? time : 0) * normal.price * 1.1
+          };
+        }),
+        {
+          plan: 'Normal',
+          price: isInvalid ? null : minutes * normal.price
+        }
+      ];
+
+      return results;
     }
   },
   mutations: {
@@ -50,8 +86,8 @@ export default new Vuex.Store({
     [types.DETAILS]: (state, payload) => {
       state.details = payload;
     },
-    [types.RESULTS]: (state, payload) => {
-      state.results = payload;
+    [types.CALC_PARAMS]: (state, payload) => {
+      state.params = payload;
     }
   },
   actions: {
@@ -73,35 +109,6 @@ export default new Vuex.Store({
     [types.DETAILS_FETCH]: async ({ commit }) => {
       const { data: details } = await axios.get('ddd/details');
       commit(types.DETAILS, details);
-    },
-    [types.RESULTS_CALC]: ({ commit, getters }, payload) => {
-      const { origin, destiny, minutes } = payload;
-      const prices = getters[types.PRICES];
-      const plans = getters[types.PLANS];
-
-      const normal = prices.find(price => {
-        const isEquals = (price.origin === origin && price.destiny === destiny);
-        return isEquals;
-      });
-
-      if (!origin || !destiny || !minutes || !normal) {
-        commit(types.RESULTS, []);
-        return;
-      }
-
-      const results = plans.map(plan => {
-        const time = minutes - plan.time;
-        const price = (time > 0 ? time : 0) * normal.price * 1.1;
-
-        const result = {
-          price,
-          plan: plan.plan_name,
-        };
-
-        return result;
-      });
-
-      commit(types.RESULTS, results);
     }
   }
 });

@@ -27,8 +27,13 @@
       width: 100%
       height: @width
 
-    & > .entry
-    & > .entry-group > .entry
+    > .label
+      display: block
+      padding-left: 12px
+      font-size: 14px
+
+    > .entry
+    > .entry-group > .entry
       box-sizing: border-box
       width: 100%
       height: 36px
@@ -41,7 +46,7 @@
       &.-active
         border-bottom-color: primary-color
 
-    & > .entry-group
+    > .entry-group
       position: relative
 </style>
 

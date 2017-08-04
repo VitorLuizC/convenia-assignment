@@ -7,8 +7,8 @@ export const PLANS_FETCH = 'PLANS_FETCH';
 export const DETAILS       = 'DETAILS';
 export const DETAILS_FETCH = 'DETAILS_FETCH';
 
-export const RESULTS      = 'RESULTS';
-export const RESULTS_CALC = 'RESULTS_CALC';
+export const CALC_PARAMS  = 'CALC_PARAMS';
+export const CALC_RESULTS = 'CALC_RESULTS';
 
 /**
  * Um atalho, ou agrupador, pra realizar todas as buscas de dados.
